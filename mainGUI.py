@@ -74,7 +74,9 @@ class ButtonsWidget(GridLayout):
 
     def add_object(self):
         if self.in_process_action_type is not None and self.current_points and self.current_points.__len__() > 2:
-            ImageObjects.add(ImageObject(points=self.current_points, type=self.in_process_action_type))
+            ImageObjects.add(ImageObject(points=self.current_points,
+                                         kivy_touches=self.current_touches,
+                                         type=self.in_process_action_type))
             print 'Object added: %s %s' % (self.in_process_action_type, self.current_points.__str__())
         self.in_process_action_type = None
         self.current_points = []
@@ -92,22 +94,29 @@ class ButtonsWidget(GridLayout):
         image_widget.source = self.widgets['TextInput'].text
         image_widget.size = get_image_size(image_widget.source)
         ImageObjects.copy(ImageProperties(image_widget.source))
+        self.on_clear_button_pressed()
 
     def on_calculate_button_pressed(self):
+        self.add_object()
         pass
+
+    def on_load_button_pressed(self):
+        self.add_object()
+        ImageObjects.copy(ImageProperties.load(path=image_widget.source[:-4] + '_POINTS_DATA.3dm'))
+        image_widget.draw_all_lines()
+
+    def on_save_button_pressed(self):
+        self.add_object()
+        ImageObjects.save(path=image_widget.source[:-4] + '_POINTS_DATA.3dm')
+
+    def on_clear_button_pressed(self):
+        global ImageObjects, image_widget
+        self.in_process_action_type = None
+        image_widget.clear()
 
     def on_motion_button_pressed(self):
         self.add_object()
         self.in_process_action_type = 'Motion'
-
-    def on_load_button_pressed(self):
-        pass
-
-    def on_save_button_pressed(self):
-        pass
-
-    def on_clear_button_pressed(self):
-        self.in_process_action_type = None
 
     def on_ground_button_pressed(self):
         self.add_object()
@@ -122,16 +131,19 @@ class ButtonsWidget(GridLayout):
         self.in_process_action_type = 'Sky'
 
     def on_render_button_pressed(self):
-        pass
+        self.add_object()
+        print >>stderr, 'RENDER:'
+        print ImageObjects.__str__()
+        print ImageObjects.objects
 
 
 buttons_widget = ButtonsWidget()
 
 
 class ImageWidget(Image):
-    def __init__(self):
+    def __init__(self, source=G_image_path):
         super(ImageWidget, self).__init__()
-        self.source = G_image_path
+        self.source = source
         self.size = get_image_size(G_image_path)
         self.widget_prop = 1, 1
 
@@ -143,12 +155,32 @@ class ImageWidget(Image):
         buttons_widget.draw_point(touch)
         buttons_widget.add_point(self.get_image_point((touch.x, touch.y)))
 
+    def clear(self):
+        for obj in self.canvas.children:
+            if type(obj) == Line:
+                self.canvas.remove(obj)
+
     def draw_line(self, touch1, touch2, (r, g, b)):
         print >>stderr, 'DRAW!'
         with self.canvas:
             Color(r, g, b)
             Line(points=touch1.pos + touch2.pos, width=5)
 
+    def draw_all_lines(self):
+        for key, itself in ImageObjects:
+            if itself is None or itself is []:
+                continue
+            r, g, b = buttons_widget.colors[key]
+            print "KEYKEYKEYKEY", key, "COLOR", (r, g, b)
+            with self.canvas:
+                Color(r, g, b)
+                line = Line(width=5)
+                for touches in ImageObjects.kivy_objects[key]:
+                    print "TOUCHES!!!", touches
+                    for touch in touches:
+                        print "ONE TOUCH", touch
+                        line.points += touch.x, touch.y
+                print line.points
 
     def get_image_point(self, (x, y)):
         win_size = self.size

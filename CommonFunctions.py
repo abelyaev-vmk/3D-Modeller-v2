@@ -23,6 +23,10 @@ class MyDict(dict):
             print >> stderr, 'Bad key %s' % key.__str__()
             return None
 
+    def __iter__(self):
+        for key in self.dict:
+            yield key
+
     @staticmethod
     def from_dictionary(dictionary, length=3):
         new_dictionary = MyDict(length=length)
