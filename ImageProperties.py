@@ -3,10 +3,12 @@ import pickle
 
 
 class ImageObject:
-    def __init__(self, points=None, kivy_points=None, type=""):
+    def __init__(self, points=None, type=""):
         self.points = np.array(points) if points is not None else None
-        self.kivy_points = np.array(kivy_points) if kivy_points is not None else None
         self.type = type
+
+    def show(self):
+        print self.type + ':', self.points
 
 
 class ImageProperties:
