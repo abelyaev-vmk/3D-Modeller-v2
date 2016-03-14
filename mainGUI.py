@@ -89,7 +89,7 @@ class MainWidget(BoxLayout):
         self.orientation = 'vertical'
         self.add_widget(buttons_widget)
         self.add_widget(image_widget)
-        self.children[1].size_hint = 1, .2
+        self.children[1].size_hint = 1, .21
 
 
 main_widget = MainWidget()
