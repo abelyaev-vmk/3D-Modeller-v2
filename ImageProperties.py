@@ -38,9 +38,13 @@ class ImageProperties:
             yield key, self.objects[key]
 
     def __str__(self):
-        ans = ''
+        ans = 'POINTS ON IMAGE\n'
         for key in self.objects:
             ans += key + ' ' + self.objects[key].__str__() + '\n'
+        ans += '\nTOUCHES\n'
+        for key in self.objects:
+            # ans += key + ' ' + self.kivy_objects[key].__str__() + '\n'
+            ans += key + ' ' + map(lambda mas: map(lambda t: (t.x, t.y), mas), self.kivy_objects[key]).__str__() + '\n'
         print ans
 
     def copy(self, ip):
@@ -50,8 +54,9 @@ class ImageProperties:
             self.project = ip.project
 
     def save(self, path=None):
-        with open(path if path is not None else self.project, 'w') as f:
+        with open(path if path is not None else self.project, 'wb') as f:
             pickle.dump(self, f)
+            f.close()
 
     @staticmethod
     def load(path=None):
@@ -59,6 +64,7 @@ class ImageProperties:
             if path:
                 with open(path, 'rb') as f:
                     ans = pickle.load(f)
+                    f.close()
             print "     PRINTING ON LOAD      \n", ans.__str__()
         except IOError:
             ans = None

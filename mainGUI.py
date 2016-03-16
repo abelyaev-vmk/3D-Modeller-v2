@@ -2,6 +2,7 @@ import numpy as np
 from GUI_consts import *
 from CommonFunctions import get_image_size, MyDict, stderr
 from ImageProperties import ImageObject, ImageProperties
+from CameraProperties import CameraProperties
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.image import Image
@@ -67,6 +68,8 @@ class ButtonsWidget(GridLayout):
                                               'Motion': (0, 1, 0)})
         print 'colors:', self.colors
 
+        self.cp = None
+
     def add_point(self, point):
         if self.in_process_action_type is None:
             return
@@ -88,6 +91,7 @@ class ButtonsWidget(GridLayout):
             self.upgrade_buttons_count()
         self.in_process_action_type = None
         self.current_points = []
+        self.current_touches = []
         self.prev_draw_point = None
 
     def draw_point(self, touch):
@@ -110,10 +114,6 @@ class ButtonsWidget(GridLayout):
         image_widget.size = get_image_size(image_widget.source)
         ImageObjects.copy(ImageProperties(image_widget.source))
         self.on_clear_button_pressed()
-
-    def on_calculate_button_pressed(self):
-        self.add_object()
-        pass
 
     def on_load_button_pressed(self):
         global ImageObjects
@@ -157,11 +157,13 @@ class ButtonsWidget(GridLayout):
         else:
             self.in_process_action_type = 'Sky'
 
+    def on_calculate_button_pressed(self):
+        self.add_object()
+        self.cp = CameraProperties(project=image_widget.source[:-4], image_path=image_widget.source, ip=ImageObjects)
+        self.cp.calculate()
+
     def on_render_button_pressed(self):
         self.add_object()
-        print >> stderr, 'RENDER:'
-        print ImageObjects.__str__()
-        print ImageObjects.objects
 
 
 buttons_widget = ButtonsWidget()
@@ -196,9 +198,7 @@ class ImageWidget(Image):
     def draw_lines_from_points(self, points, (r, g, b), width=5):
         with self.canvas:
             Color(r, g, b)
-            line = Line(points=points[:2])
-            for p in points:
-                line.points.append(p)
+            Line(points=points, width=width)
         # self.canvas.add(Color(1, 0, 0))
         # self.canvas.add(Line(points=points, width=width))
         # with self.canvas:
@@ -219,6 +219,9 @@ class ImageWidget(Image):
                 lines.append([])
                 for coordinate in all_coordinates:
                     lines[i] += coordinate
+
+            print 'Drawing %s with color %s\n%s\n' % (key, buttons_widget.colors[key], lines.__str__())
+
             for line in lines:
                 self.draw_lines_from_points(line, buttons_widget.colors[key], width=5)
 
@@ -237,12 +240,22 @@ class ImageWidget(Image):
     def get_image_point(self, (x, y)):
         win_size = self.size
         img_size = map(float, get_image_size(self.source))
-        win_prop, img_prop = win_size[0] / win_size[1], img_size[0] / img_size[1]
-        if win_prop > 1 and img_prop > 1:
-            t = float(win_size[1]) / img_size[1]
-            ans_y = y / t
-            ans_x = (x - (win_size[0] - img_size[0] * t) * .5) / t
-            return ans_x, ans_y
+        ww, wh = win_size
+        iw, ih = img_size
+        win_prop, img_prop = ww / wh, iw / ih
+        if win_prop > 1:
+            if img_prop > 1:
+                t = float(win_size[0]) / img_size[0]
+                ans_x = x / t
+                ans_y = (y - (win_size[1] - img_size[1] * t) * .5) / t
+
+                print 'GET_IMAGE_POINT DEBUG'
+                print win_prop, img_prop
+                print t
+                print '%s -> %s' % ((x, y).__str__(), (ans_x, ans_y).__str__())
+
+                return ans_x, ans_y
+
         return 0, 0
 
 

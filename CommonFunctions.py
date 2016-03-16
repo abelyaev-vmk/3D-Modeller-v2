@@ -1,11 +1,23 @@
 from sys import stderr, stdout
-
+from math import *
 
 # Get size of image
 def get_image_size(source):
     from PIL import Image
     return Image.open(source).size
 
+
+def restructure_array(array):
+    ans = [[] for _ in array]
+    for i, _ in enumerate(array):
+        ans[i] = [[] for _ in array[i]]
+        for j, __ in enumerate(array[i]):
+            ans[i][j] = [array[i][j][0], array[i][j][1]]
+    return ans
+
+
+def dist(p1, p2):
+    return sqrt(sum(map(lambda a, b: (a - b) ** 2, p1, p2)))
 
 class MyDict(dict):
     def __init__(self, length=5):
