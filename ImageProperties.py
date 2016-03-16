@@ -32,7 +32,6 @@ class ImageProperties:
     def add(self, io):
         self.objects[io.type].append(io.points)
         self.kivy_objects[io.type].append(io.touches)
-        print >>stderr, self.kivy_objects['Ground']
 
     def __iter__(self):
         for key in ('Ground', 'Walls', 'Sky', 'Motion'):
@@ -51,17 +50,16 @@ class ImageProperties:
             self.project = ip.project
 
     def save(self, path=None):
-        with open(path if path is not None else self.project, 'wb') as f:
+        with open(path if path is not None else self.project, 'w') as f:
             pickle.dump(self, f)
 
     @staticmethod
     def load(path=None):
-        ans = None
         try:
             if path:
                 with open(path, 'rb') as f:
                     ans = pickle.load(f)
-            print "PRINTING ON LOAD", ans.__str__()
+            print "     PRINTING ON LOAD      \n", ans.__str__()
         except IOError:
-            pass
+            ans = None
         return ans
