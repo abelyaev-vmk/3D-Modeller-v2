@@ -40,6 +40,8 @@ class CameraProperties:
         self.walls_planes = [self.define_wall_plane(wall) for wall in self.walls]
         self.sky_plane = self.define_sky_plane()
 
+        self.__img2world_dict = {}
+
     def change_y_coordinate(self):
         change_y_in_lines = lambda lines: map(lambda line:
                                               map(lambda point: [point[0], self.image_size[1] - point[1] - 1],
@@ -77,9 +79,72 @@ class CameraProperties:
     def define_sky_plane(self):
         return 0
 
-    # TODO add other xml types
     @property
     def external_calibration(self):
+        if not hasattr(self, '__ext_cal'):
+            self.__ext_cal = self.__compute_external_calibration()
+        return self.__ext_cal
+
+    @property
+    def internal_calibration(self):
+        if not hasattr(self, '__int_cal'):
+            self.__int_cal = self.__compute_internal_calibration()
+        return self.__int_cal
+
+    @property
+    def internal_parameters(self):
+        if not hasattr(self, '__int_params'):
+            self.__int_params = self.__compute_internal_parameters()
+        return self.__int_params
+
+    @property
+    def GL_projection_matrix(self):
+        if not hasattr(self, '__gl_proj_matr'):
+            self.__gl_proj_matr = self.__compute_GL_projection_matrix()
+        return self.__gl_proj_matr
+
+    @property
+    def GL_model_view_matrix(self):
+        if not hasattr(self, '__gl_model_view_matr'):
+            self.__gl_model_view_matr = self.__compute_GL_model_view_matrix()
+        return self.__gl_model_view_matr
+
+    @property
+    def calibration_matrix(self):
+        if not hasattr(self, '__cal_matr'):
+            self.__cal_matr = self.__compute_calibration_matrix()
+        return self.__cal_matr
+
+    def img2world(self, point=(0, 0), plane=(0, 0, 1, 0)):
+        point = [point[0], point[1], 1]
+        if plane.__str__() in self.__img2world_dict:
+            A = self.__img2world_dict[plane.__str__()]
+        else:
+            A = np.zeros((4, 4))
+            A[:3, :] = self.calibration_matrix[:, :]
+            self.__img2world_dict[plane.__str__()] = A
+        b = np.array([[p] for p in point + [0]])
+        new_point = np.dot(np.linalg.inv(A), b)
+        return new_point[:-1] / new_point[-1]
+
+    def world2img(self, point=(0, 0, 0, 1)):
+        ip = self.calibration_matrix.dot(point)
+        return ip[0, 0] / ip[0, 2], ip[0, 1] / ip[0, 2]
+
+    # TODO import from old project
+    def interpolate(self, in_point=(0, 0)):
+        pass
+
+    # TODO import from old project
+    @debug_time
+    def image2plane(self, max_size=750, plane=(0, 0, 1, 0)):
+        pass
+
+    def calculate(self):
+        pass
+
+    # TODO add other xml types
+    def __compute_external_calibration(self):
         if self.xml.type == 'IE':
             return self.GL_model_view_matrix
         if self.xml.type == 'IGE':
@@ -99,8 +164,7 @@ class CameraProperties:
             return matr
 
     # TODO add other xml types
-    @property
-    def internal_calibration(self):
+    def __compute_internal_calibration(self):
         if self.xml.type == 'IE':
             fl, pp, s = self.xml['fl'], self.xml['pp'], self.xml['s']
             return np.array([[fl[0], tan(s) * fl[1], pp[0]],
@@ -108,18 +172,17 @@ class CameraProperties:
                              [0, 0, 1]])
         if self.xml.type == 'IGE':
             matr = np.zeros((3, 3))
-            matr[0, 0] = self['sx'] / self['dp'][0]
-            matr[0, 2] = self['c'][0]
-            matr[1, 1] = 1 / self['dp'][1]
-            matr[1, 2] = self['c'][1]
+            matr[0, 0] = self.xml['sx'] / self.xml['dp'][0]
+            matr[0, 2] = self.xml['c'][0]
+            matr[1, 1] = 1 / self.xml['dp'][1]
+            matr[1, 2] = self.xml['c'][1]
             matr[2, 2] = 1
-            return np.dot(matr, np.array([[self['focal'], 0, 0],
-                                          [0, self['focal'], 0],
+            return np.dot(matr, np.array([[self.xml['focal'], 0, 0],
+                                          [0, self.xml['focal'], 0],
                                           [0, 0, 1]]))
         return 1
 
-    @property
-    def internal_parameters(self):
+    def __compute_internal_parameters(self):
         f = np.mean(self.xml['fl'] or self.xml['focal'])
         cx, cy = self.xml['pp'] or self.xml['c']
         pixel_center_offset = 0.5
@@ -132,40 +195,18 @@ class CameraProperties:
         bottom = (cy + pixel_center_offset) * (near / f)
         return left, right, bottom, top, near, far
 
-    @property
-    def GL_projection_matrix(self):
+    def __compute_GL_projection_matrix(self):
         l, r, b, t, n, f = self.internal_parameters
         return np.matrix([[2 * n / (r - l), 0, (r + l) / (r - l), 0],
                           [0, 2 * n / (t - b), (t + b) / (t - b), 0],
                           [0, 0, -(f + n) / (f - n), -2 * f * n / (f - n)],
                           [0, 0, -1, 0]])
 
-    @property
-    def GL_model_view_matrix(self):
+    def __compute_GL_model_view_matrix(self):
         view_matrix = self.external_calibration
         gl_view_matrix = np.asarray(np.vstack((view_matrix, np.array([0, 0, 0, 1]))), np.float32, order='F')
         return gl_view_matrix
 
-    @property
-    def calibration_matrix(self):
+    def __compute_calibration_matrix(self):
         return np.matrix(self.internal_calibration) * np.matrix(self.external_calibration)
 
-    # TODO import from old project
-    def img2world(self, point=(0, 0), plane=(0, 0, 1, 0)):
-        pass
-
-    # TODO import from old project
-    def world2img(self, point=(0, 0, 0)):
-        pass
-
-    # TODO import from old project
-    def interpolate(self, in_point=(0, 0)):
-        pass
-
-    # TODO import from old project
-    @debug_time
-    def image2plane(self, max_size=750, plane=(0, 0, 1, 0)):
-        pass
-
-    def calculate(self):
-        pass

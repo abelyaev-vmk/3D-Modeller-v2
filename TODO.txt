@@ -1,0 +1,5 @@
+# TODO !!!
+
+1) Import functions into CameraProperties
+2) Think about 3DImage architecture, which may used in img2plane function
+3) 
