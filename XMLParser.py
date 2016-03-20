@@ -71,4 +71,4 @@ def get_data_from_xml(source=None):
             if child.tag == 'Extrinsic':
                 external['pos'] = np.array(map(float, [at['tx'], at['ty'], at['tz']]))
                 external['rot'] = np.array(map(float, [at['rx'], at['ry'], at['rz']]))
-    return xml_type, internal, external, geometry
+    return XML(xml_type, internal, external, geometry)
