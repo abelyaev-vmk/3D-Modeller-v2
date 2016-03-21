@@ -72,3 +72,4 @@ def get_data_from_xml(source=None):
                 external['pos'] = np.array(map(float, [at['tx'], at['ty'], at['tz']]))
                 external['rot'] = np.array(map(float, [at['rx'], at['ry'], at['rz']]))
     return XML(xml_type, internal, external, geometry)
+

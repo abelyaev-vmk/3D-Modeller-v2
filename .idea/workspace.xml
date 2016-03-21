@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="328627db-22d0-4e10-9446-eda74ec5a961" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CameraProperties.py" afterPath="$PROJECT_DIR$/CameraProperties.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CommonFunctions.py" afterPath="$PROJECT_DIR$/CommonFunctions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/teroija_cifr.py" afterPath="$PROJECT_DIR$/teroija_cifr.py" />
-    </list>
+    <list default="true" id="328627db-22d0-4e10-9446-eda74ec5a961" name="Default" comment="" />
     <ignored path="GUI.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/mainGUI.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+              <caret line="270" column="37" selection-start-line="270" selection-start-column="37" selection-end-line="270" selection-end-column="37" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -43,38 +37,35 @@
         <entry file="file://$PROJECT_DIR$/CameraProperties.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <caret line="151" column="38" selection-start-line="151" selection-start-column="38" selection-end-line="151" selection-end-column="38" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
-                <element signature="e#257#1561#0" expanded="false" />
-                <element signature="e#1606#1981#0" expanded="false" />
-                <element signature="e#2030#3224#0" expanded="false" />
-                <element signature="e#3295#3303#0" expanded="false" />
-                <element signature="e#3363#3494#0" expanded="false" />
-                <element signature="e#3554#3685#0" expanded="false" />
-                <element signature="e#3744#3883#0" expanded="false" />
-                <element signature="e#3943#4089#0" expanded="false" />
-                <element signature="e#4149#4313#0" expanded="false" />
-                <element signature="e#4371#4503#0" expanded="false" />
-                <element signature="e#4572#5009#0" expanded="false" />
-                <element signature="e#5064#5159#0" expanded="false" />
-                <element signature="e#5374#5378#0" expanded="false" />
-                <element signature="e#5413#5417#0" expanded="false" />
-                <element signature="e#5504#6305#0" expanded="false" />
-                <element signature="e#6386#7130#0" expanded="false" />
-                <element signature="e#7185#7691#0" expanded="false" />
-                <element signature="e#7747#8048#0" expanded="false" />
-                <element signature="e#8104#8282#0" expanded="false" />
-                <element signature="e#8336#8418#0" expanded="false" />
+                <element signature="e#1651#2026#0" expanded="false" />
+                <element signature="e#2075#3269#0" expanded="false" />
+                <element signature="e#3340#3348#0" expanded="false" />
+                <element signature="e#3408#3539#0" expanded="false" />
+                <element signature="e#3599#3730#0" expanded="false" />
+                <element signature="e#3789#3928#0" expanded="false" />
+                <element signature="e#3988#4134#0" expanded="false" />
+                <element signature="e#4194#4358#0" expanded="false" />
+                <element signature="e#4416#4548#0" expanded="false" />
+                <element signature="e#4617#5054#0" expanded="false" />
+                <element signature="e#5109#5204#0" expanded="false" />
+                <element signature="e#6134#7058#0" expanded="false" />
+                <element signature="e#7139#7883#0" expanded="false" />
+                <element signature="e#7938#8508#0" expanded="false" />
+                <element signature="e#8564#8865#0" expanded="false" />
+                <element signature="e#8921#9151#0" expanded="false" />
+                <element signature="e#9205#9287#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TODO.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TODO.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.11299435">
+            <state vertical-scroll-proportion="0.0">
               <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
               <folding />
             </state>
@@ -85,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/what is decorators.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -95,20 +86,10 @@
         <entry file="file://$PROJECT_DIR$/XMLParser.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
+              <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Python/2.7/site-packages/kivy/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="465" column="4" selection-start-line="465" selection-start-column="4" selection-end-line="465" selection-end-column="4" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -117,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/ImageProperties.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -125,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommonFunctions.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CommonFunctions.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CommonFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.40233237">
+              <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -157,21 +138,21 @@
         <option value="$PROJECT_DIR$/../GUI/ImageProperties.py" />
         <option value="$PROJECT_DIR$/../GUI/CommonFunctions.py" />
         <option value="$PROJECT_DIR$/../GUI/mainGUI.py" />
-        <option value="$PROJECT_DIR$/ImageProperties.py" />
         <option value="$PROJECT_DIR$/mainGUI.py" />
         <option value="$USER_HOME$/Downloads/teorija_cifr.cpp" />
-        <option value="$PROJECT_DIR$/XMLParser.py" />
-        <option value="$PROJECT_DIR$/what is decorators.py" />
         <option value="$PROJECT_DIR$/teroija_cifr.py" />
-        <option value="$PROJECT_DIR$/CommonFunctions.py" />
-        <option value="$PROJECT_DIR$/CameraProperties.py" />
         <option value="$PROJECT_DIR$/TODO.txt" />
+        <option value="$PROJECT_DIR$/XMLParser.py" />
+        <option value="$PROJECT_DIR$/ImageProperties.py" />
+        <option value="$PROJECT_DIR$/CameraProperties.py" />
+        <option value="$PROJECT_DIR$/what is decorators.py" />
+        <option value="$PROJECT_DIR$/CommonFunctions.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="width" value="960" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -217,8 +198,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -239,6 +218,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -246,6 +227,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/VisionLab/3D Modeller v2/XMLParser.py" />
   </component>
   <component name="RunManager" selected="Python.what is decorators">
     <configuration default="false" name="test_gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -314,6 +296,28 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/what is decorators.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in CommonFunctions" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="3D Modeller v2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CommonFunctions.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -438,18 +442,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.test_gui" />
       <item index="1" class="java.lang.String" itemvalue="Python.mainGUI" />
       <item index="2" class="java.lang.String" itemvalue="Python.mainGUI (1)" />
       <item index="3" class="java.lang.String" itemvalue="Python.what is decorators" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in CommonFunctions" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.what is decorators" />
-        <item index="1" class="java.lang.String" itemvalue="Python.mainGUI (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.mainGUI" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test_gui" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in CommonFunctions" />
+        <item index="2" class="java.lang.String" itemvalue="Python.mainGUI (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.mainGUI" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test_gui" />
       </list>
     </recent_temporary>
   </component>
@@ -469,27 +475,32 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_CommonFunctions - 2016.03.21 at 17h 13m 48s.xml">
+      <configuration name="Unittests in CommonFunctions" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="960" height="1040" extended-state="1" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24242425" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.5081043" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.4918957" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19197397" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31914893" sideWeight="0.27380952" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.4883721" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21278942" sideWeight="0.4747024" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.49147287" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33109245" sideWeight="0.7693452" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25369978" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.49457365" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31914893" sideWeight="0.72619045" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3927711" sideWeight="0.6807611" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.49444443" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48313254" sideWeight="0.74207187" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -512,11 +523,94 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/mainGUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CameraProperties.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#1651#2026#0" expanded="false" />
+            <element signature="e#2075#3269#0" expanded="false" />
+            <element signature="e#3340#3348#0" expanded="false" />
+            <element signature="e#3408#3539#0" expanded="false" />
+            <element signature="e#3599#3730#0" expanded="false" />
+            <element signature="e#3789#3928#0" expanded="false" />
+            <element signature="e#3988#4134#0" expanded="false" />
+            <element signature="e#4194#4358#0" expanded="false" />
+            <element signature="e#4416#4548#0" expanded="false" />
+            <element signature="e#4617#5054#0" expanded="false" />
+            <element signature="e#5109#5204#0" expanded="false" />
+            <element signature="e#6134#7058#0" expanded="false" />
+            <element signature="e#7139#7883#0" expanded="false" />
+            <element signature="e#7938#8508#0" expanded="false" />
+            <element signature="e#8564#8865#0" expanded="false" />
+            <element signature="e#8921#9151#0" expanded="false" />
+            <element signature="e#9205#9287#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/what is decorators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageProperties.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CommonFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mainGUI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -543,35 +637,24 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
-            <element signature="e#257#1561#0" expanded="false" />
-            <element signature="e#1606#1981#0" expanded="false" />
-            <element signature="e#2030#3224#0" expanded="false" />
-            <element signature="e#3295#3303#0" expanded="false" />
-            <element signature="e#3363#3494#0" expanded="false" />
-            <element signature="e#3554#3685#0" expanded="false" />
-            <element signature="e#3744#3883#0" expanded="false" />
-            <element signature="e#3943#4089#0" expanded="false" />
-            <element signature="e#4149#4313#0" expanded="false" />
-            <element signature="e#4371#4503#0" expanded="false" />
-            <element signature="e#4572#5009#0" expanded="false" />
-            <element signature="e#5064#5159#0" expanded="false" />
-            <element signature="e#5374#5378#0" expanded="false" />
-            <element signature="e#5413#5417#0" expanded="false" />
-            <element signature="e#5504#6305#0" expanded="false" />
-            <element signature="e#6386#7130#0" expanded="false" />
-            <element signature="e#7185#7691#0" expanded="false" />
-            <element signature="e#7747#8048#0" expanded="false" />
-            <element signature="e#8104#8282#0" expanded="false" />
-            <element signature="e#8336#8418#0" expanded="false" />
+            <element signature="e#1651#2026#0" expanded="false" />
+            <element signature="e#2075#3269#0" expanded="false" />
+            <element signature="e#3340#3348#0" expanded="false" />
+            <element signature="e#3408#3539#0" expanded="false" />
+            <element signature="e#3599#3730#0" expanded="false" />
+            <element signature="e#3789#3928#0" expanded="false" />
+            <element signature="e#3988#4134#0" expanded="false" />
+            <element signature="e#4194#4358#0" expanded="false" />
+            <element signature="e#4416#4548#0" expanded="false" />
+            <element signature="e#4617#5054#0" expanded="false" />
+            <element signature="e#5109#5204#0" expanded="false" />
+            <element signature="e#6134#7058#0" expanded="false" />
+            <element signature="e#7139#7883#0" expanded="false" />
+            <element signature="e#7938#8508#0" expanded="false" />
+            <element signature="e#8564#8865#0" expanded="false" />
+            <element signature="e#8921#9151#0" expanded="false" />
+            <element signature="e#9205#9287#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/kivy/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="465" column="4" selection-start-line="465" selection-start-column="4" selection-end-line="465" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -609,17 +692,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/teorija_cifr.cpp">
+    <entry file="file://$PROJECT_DIR$/teroija_cifr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.21966527">
+          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainGUI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+          <caret line="270" column="37" selection-start-line="270" selection-start-column="37" selection-end-line="270" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CameraProperties.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="151" column="38" selection-start-line="151" selection-start-column="38" selection-end-line="151" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#1651#2026#0" expanded="false" />
+            <element signature="e#2075#3269#0" expanded="false" />
+            <element signature="e#3340#3348#0" expanded="false" />
+            <element signature="e#3408#3539#0" expanded="false" />
+            <element signature="e#3599#3730#0" expanded="false" />
+            <element signature="e#3789#3928#0" expanded="false" />
+            <element signature="e#3988#4134#0" expanded="false" />
+            <element signature="e#4194#4358#0" expanded="false" />
+            <element signature="e#4416#4548#0" expanded="false" />
+            <element signature="e#4617#5054#0" expanded="false" />
+            <element signature="e#5109#5204#0" expanded="false" />
+            <element signature="e#6134#7058#0" expanded="false" />
+            <element signature="e#7139#7883#0" expanded="false" />
+            <element signature="e#7938#8508#0" expanded="false" />
+            <element signature="e#8564#8865#0" expanded="false" />
+            <element signature="e#8921#9151#0" expanded="false" />
+            <element signature="e#9205#9287#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageProperties.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -629,94 +767,18 @@
     <entry file="file://$PROJECT_DIR$/what is decorators.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLParser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/kivy/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="465" column="4" selection-start-line="465" selection-start-column="4" selection-end-line="465" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ImageProperties.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teroija_cifr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21966527">
-          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CommonFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.40233237">
+          <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CameraProperties.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-            <element signature="e#257#1561#0" expanded="false" />
-            <element signature="e#1606#1981#0" expanded="false" />
-            <element signature="e#2030#3224#0" expanded="false" />
-            <element signature="e#3295#3303#0" expanded="false" />
-            <element signature="e#3363#3494#0" expanded="false" />
-            <element signature="e#3554#3685#0" expanded="false" />
-            <element signature="e#3744#3883#0" expanded="false" />
-            <element signature="e#3943#4089#0" expanded="false" />
-            <element signature="e#4149#4313#0" expanded="false" />
-            <element signature="e#4371#4503#0" expanded="false" />
-            <element signature="e#4572#5009#0" expanded="false" />
-            <element signature="e#5064#5159#0" expanded="false" />
-            <element signature="e#5374#5378#0" expanded="false" />
-            <element signature="e#5413#5417#0" expanded="false" />
-            <element signature="e#5504#6305#0" expanded="false" />
-            <element signature="e#6386#7130#0" expanded="false" />
-            <element signature="e#7185#7691#0" expanded="false" />
-            <element signature="e#7747#8048#0" expanded="false" />
-            <element signature="e#8104#8282#0" expanded="false" />
-            <element signature="e#8336#8418#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TODO.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11299435">
-          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>

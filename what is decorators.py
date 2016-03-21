@@ -39,7 +39,3 @@ class A:
     @param.setter
     def param(self, val):
         self._param = val
-
-
-a = A()
-print a.param

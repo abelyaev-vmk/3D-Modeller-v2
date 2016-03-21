@@ -35,12 +35,13 @@ class CameraProperties:
         self.change_y_coordinate()
         # # # # # # # # # # # # # # # # #
 
-        # Set planes we'll working on
-        self.ground_plane = (0, 0, 1, 0)
-        self.walls_planes = [self.define_wall_plane(wall) for wall in self.walls]
-        self.sky_plane = self.define_sky_plane()
-
-        self.__img2world_dict = {}
+        self.debug_info()
+        # # Set planes we'll working on
+        # self.ground_plane = (0, 0, 1, 0)
+        # self.walls_planes = [self.define_wall_plane(wall) for wall in self.walls]
+        # self.sky_plane = self.define_sky_plane()
+        #
+        # self.__img2world_dict = {}
 
     def change_y_coordinate(self):
         change_y_in_lines = lambda lines: map(lambda line:
@@ -137,16 +138,28 @@ class CameraProperties:
 
     # TODO import from old project
     @debug_time
-    def image2plane(self, max_size=750, plane=(0, 0, 1, 0)):
-        pass
+    def image2plane(self, max_size=750, plane=(0, 0, 1, 0), points=None):
+        if points is None:
+            points = ((0, 0),
+                      (self.image_size[0] - 1, 0),
+                      (0, self.image_size[1] - 1),
+                      (self.image_size[0] - 1, self.image_size[1] - 1))
+        corners = map(lambda p: self.img2world(p, plane), points)
+        min_coord, max_coord = corners[0], corners[0]
+        for corner in corners:
+            max_coord = map(max, max_coord, corner)
+            min_coord = map(min, min_coord, corner)
+        offset = map(float, min_coord)
 
     def calculate(self):
         pass
 
     # TODO add other xml types
+    # # return matrix3x4, previous = 4x4, see GL_model_view
     def __compute_external_calibration(self):
         if self.xml.type == 'IE':
-            return self.GL_model_view_matrix
+            return self.camera.GetViewMatrix()
+            # return np.asarray(np.vstack((self.camera.GetViewMatrix(), np.array([0, 0, 0, 1]))), np.float32, order='F')
         if self.xml.type == 'IGE':
             rx, ry, rz = self.xml['rot']
             tx, ty, tz = self.xml['pos']
@@ -183,8 +196,8 @@ class CameraProperties:
         return 1
 
     def __compute_internal_parameters(self):
-        f = np.mean(self.xml['fl'] or self.xml['focal'])
-        cx, cy = self.xml['pp'] or self.xml['c']
+        f = np.mean(self.xml['fl'] if self.xml['fl'] is not None else self.xml['focal'])
+        cx, cy = self.xml['pp'] if self.xml['pp'] is not None else self.xml['c']
         pixel_center_offset = 0.5
         near = 1.0
         far = 1e2
@@ -204,9 +217,16 @@ class CameraProperties:
 
     def __compute_GL_model_view_matrix(self):
         view_matrix = self.external_calibration
+        # view_matrix = self.camera.GetViewMatrix()
         gl_view_matrix = np.asarray(np.vstack((view_matrix, np.array([0, 0, 0, 1]))), np.float32, order='F')
         return gl_view_matrix
 
     def __compute_calibration_matrix(self):
         return np.matrix(self.internal_calibration) * np.matrix(self.external_calibration)
 
+    def debug_info(self):
+        for i, p in enumerate((self.internal_calibration, self.external_calibration, self.internal_parameters,
+                               self.calibration_matrix, self.GL_model_view_matrix, self.GL_projection_matrix)):
+            print '{0}: {1}'.format(i, p)
+        print 'wall: ', self.walls
+        print 'wall_plane: ', self.walls[0]

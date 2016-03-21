@@ -56,6 +56,28 @@ class MyDict(dict):
 
 
 # # # # # # Matrix & Vectors # # # # # # # #
+class MatrixesForImage():
+    def __init__(self):
+        self.__translation_2D, self.__translation_3D = np.identity(4), np.identity(4)
+        self.__scale_2D, self.__scale_3D = np.identity(4), np.identity(4)
+        self.__rotation_2D, self.__rotation_3D = np.identity(3), np.identity(4)
+        self.__transition, self.__inv_transition = np.identity(4), np.identity(4)
+        self.updated = True
+
+    def transition(self):
+        if not self.updated:
+            self.__transition = self.__rotation_2D * self.__scale_2D * self.__translation_2D * \
+                                self.__rotation_3D * self.__scale_3D * self.__translation_3D
+            self.__inv_transition = np.linalg.inv(self.__transition)
+            self.updated = False
+        return self.__transition
+
+    def inv_transition(self):
+        if self.updated:
+            self.transition()
+        return self.__inv_transition
+
+
 def hom2het(vector=None, matrix=None):
     if vector is not None:
         return np.append(np.array(vector), 1)
@@ -71,6 +93,24 @@ def het2hom(vector=None, matrix=None):
         return np.array(vector[:-1]) / vector[-1]
     if matrix is not None:
         return matrix[:3, :3] / matrix[3, 3]
+
+
+# points = ((1, 2, 3), (2, 3, 4), (5, 6, 7))
+def plane_from_points(points=None):
+    p = points[0]
+    v, w = map(lambda p1, p2: p1 - p2, points[0], points[1]), map(lambda p1, p2: p1 - p2, points[0], points[2])
+    dets = [(v[k[0]] * w[k[1]] - v[k[1]] * w[k[0]]) for k in ((1, 2), (0, 2), (0, 1))]
+    return dets[0], -dets[1], dets[2], -p[0] * dets[0] - p[2] * dets[2] + p[1] * dets[1]
+
+
+def vector_length(vec):
+    vec = np.array(vec)
+    return sqrt(vec.dot(vec))
+
+
+def is_plane(plane=(1, 2, 0, 0)):
+    eps = 0.1
+    return vector_length(plane.dot(np.array([0, 0, 1, 0]))) < eps
 
 
 # # # # # # DECORATORS HERE!!! # # # # # # #
@@ -102,3 +142,13 @@ def debug_args(func):
         res = func(*args, **kwargs)
         return res
     return wrapper
+
+
+class cached_property(object):
+    def __init__(self, func):
+        self.func = func
+        self.name = func.__name__
+
+    def __get__(self, instance, cls=None):
+        result = instance.__dict__[self.name] = self.func(instance)
+        return result
