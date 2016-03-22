@@ -4,20 +4,27 @@ import camera
 from PIL import Image
 import numpy as np
 from CommonFunctions import *
+from os import getcwd
 
 
+# TODO sky calculation! (CLASS-TODO)
 class CameraProperties:
     def __init__(self, ip, project, image_path):
         self.ip = ip
         self.ground = restructure_array(ip.objects['Ground'])
+        self.ground_image = None
         self.walls = restructure_array(ip.objects['Walls'])
+        self.walls_images = [None for _ in self.walls]
         self.sky = restructure_array(ip.objects['Sky'])
+        self.sky_image = []
         self.motion = restructure_array(ip.objects['Motion'])
 
         self.project = project
         self.image_path = image_path
-        self.xml = get_data_from_xml(source=self.project + '.xml')  # type: XML
-        self.image_size = get_image_size(image_path)
+        self.xml = get_data_from_xml()  # type: XML
+        self.image = Image.open(image_path)
+        self.image_pixels = self.image.load()
+        self.image_size = self.image.size
 
         # Set camera parameters
         self.camera = camera.Camera()
@@ -34,14 +41,22 @@ class CameraProperties:
         # # It have to be with kivy usage!
         self.change_y_coordinate()
         # # # # # # # # # # # # # # # # #
+        self.__img2world_dict = {}
+        self.ground_plane = (0, 0, 1, 0)
+        self.walls_planes = [self.define_wall_plane(wall) for wall in self.walls]
+        self.sky_plane = self.define_sky_plane()
+        self.calculated = False
 
-        self.debug_info()
-        # # Set planes we'll working on
-        # self.ground_plane = (0, 0, 1, 0)
-        # self.walls_planes = [self.define_wall_plane(wall) for wall in self.walls]
-        # self.sky_plane = self.define_sky_plane()
-        #
-        # self.__img2world_dict = {}
+    # TODO add sky
+    def make_image_projections(self):
+        for _ in self.ground:
+            self.ground_image = Image3D.load('ground')
+            if self.ground_image is None:
+                self.ground_image = self.image2plane(plane=self.ground_plane, key='ground', points=self.ground[0])
+        for i, wall_plane in enumerate(self.walls_planes):
+            self.walls_images[i] = Image3D.load('wall%d' % i)
+            if self.walls_images[i] is None:
+                self.walls_images[i] = self.image2plane(plane=wall_plane, key='wall%d' % i, points=self.walls[i])
 
     def change_y_coordinate(self):
         change_y_in_lines = lambda lines: map(lambda line:
@@ -53,17 +68,17 @@ class CameraProperties:
 
     def define_wall_plane(self, wall):
         points = []
-        for line in wall:
-            points.append(line[0])
-        distances = np.zeros((len(points), len(self.ground)))
+        for point in wall:
+            points.append(point)
+        distances = np.zeros((len(points), len(self.ground[0])))
         for p, point in enumerate(points):
-            for l, line in enumerate(self.ground):
-                distances[p, l] = dist(point, line[0])
+            for gp, gpoint in enumerate(self.ground[0]):
+                distances[p, gp] = dist(point, gpoint)
         min_indexes = np.argsort(distances, axis=1)
         min_values = [[distances[i][min_indexes[i, 0]], (i, min_indexes[i, 0])] for i in range(distances.shape[0])]
         min_values.sort(key=lambda m: m[0])
         min_dist_points = [min_values[i][1] for i in (0, 1)]
-        points_on_plane = [self.ground[min_dist_points[i][1]][0] for i in (0, 1)]
+        points_on_plane = [self.ground[0][min_dist_points[i][1]] for i in (0, 1)]
         x0, y0, z0 = map(float, self.img2world(point=points_on_plane[0],
                                                plane=self.ground_plane))
         x1, y1, z1 = map(float, self.img2world(point=points_on_plane[1],
@@ -123,36 +138,102 @@ class CameraProperties:
         else:
             A = np.zeros((4, 4))
             A[:3, :] = self.calibration_matrix[:, :]
+            A[3, :] = plane[:]
             self.__img2world_dict[plane.__str__()] = A
         b = np.array([[p] for p in point + [0]])
         new_point = np.dot(np.linalg.inv(A), b)
         return new_point[:-1] / new_point[-1]
 
     def world2img(self, point=(0, 0, 0, 1)):
-        ip = self.calibration_matrix.dot(point)
+        ip = self.calibration_matrix.dot(hom2het(vector=point))
         return ip[0, 0] / ip[0, 2], ip[0, 1] / ip[0, 2]
 
     # TODO import from old project
     def interpolate(self, in_point=(0, 0)):
-        pass
+        try:
+            return self.image_pixels[in_point]
+        except KeyError:
+            pass
+        except ValueError:
+            pass
+        return 0, 0, 0
 
-    # TODO import from old project
-    @debug_time
-    def image2plane(self, max_size=750, plane=(0, 0, 1, 0), points=None):
+    # TODO add sky
+    @Debug.time
+    def image2plane(self, max_size=G_projection_max_size, plane=(0, 0, 1, 0), points=None, key='ground'):
+        matrices = MatricesForImage()
+
+        # create limiting polygon
         if points is None:
             points = ((0, 0),
                       (self.image_size[0] - 1, 0),
                       (0, self.image_size[1] - 1),
                       (self.image_size[0] - 1, self.image_size[1] - 1))
+
+        # find 3D offset
         corners = map(lambda p: self.img2world(p, plane), points)
         min_coord, max_coord = corners[0], corners[0]
         for corner in corners:
             max_coord = map(max, max_coord, corner)
             min_coord = map(min, min_coord, corner)
         offset = map(float, min_coord)
+        matrices.translate((-offset[0], -offset[1], 0), '3D')
+
+        # find rotation and axis in case of plane and ground are orthographic
+        world_coords = np.array(map(lambda p: het2hom(vector=matrices.transition() * vm_hom2het(p)), corners))
+        axis, theta = ground_axis(world_coords)
+        matrices.axis_rotate(axis, theta, '3D')
+
+        #
+        plane_coords = map(lambda p: het2hom(vector=matrices.transition() * vm_hom2het(p))[:2], corners)
+        min_coord, max_coord = plane_coords[0], plane_coords[0]
+        for coord in plane_coords:
+            min_coord, max_coord = map(min, min_coord, coord), map(max, max_coord, coord)
+        offset = map(float, min_coord[:2])
+
+        shape = map(lambda m, o: m - o, max_coord, offset)
+        shape_reducing = float(max(shape[0] / max_size, shape[1] / max_size))
+        shape = map(lambda s: int(s / shape_reducing), shape)
+
+        matrices.translate((-offset[0], -offset[1]), '2D')
+        matrices.scale(1 / shape_reducing, '2D')
+
+        img = Image3D(image=Image.new('RGBA', shape, 'white'), key=key, matrices=matrices)
+        for ix in range(shape[0]):
+            for iy in range(shape[1]):
+                wp = matrices.inv_transition() * vm_hom2het((ix, iy, 0))
+                wx, wy, wz = np.array(het2hom(wp)).ravel()
+                point = self.world2img((wx, wy, wz))
+                if not all(0 <= point[i] < self.image_size[i] for i in (0, 1)):
+                    continue
+                img[ix, iy] = self.interpolate(point)
+            if ix in (i * shape[0] / 20 for i in range(0, 20)):
+                print "Done %d / %d" % (ix, shape[0])
+        img.save()
+        img.show()
 
     def calculate(self):
-        pass
+        self.make_image_projections()
+        self.calculated = True
+
+    def render(self):
+        f = open(G_UnityPointsAndTex_path, 'w')
+        f.write(points_and_tex_info([self.img2world(point=point, plane=self.ground_plane) for point in self.ground[0]],
+                                    self.ground_image))
+        walls = [[self.img2world(point=point, plane=self.walls_planes[i]) for point in wall]
+                 for i, wall in enumerate(self.walls)]
+        f.write('%d\n' % len(walls))
+        for i, wall in enumerate(walls):
+            f.write(points_and_tex_info(wall, self.walls_images[i]))
+        f.close()
+
+        f = open(G_UnityInfo_path, 'w')
+        f.write('%s\n%s\n' % (make_unity_path(getcwd()) + '//', G_UnityPointsAndTex_path))
+        f.write('%d\n%s_projection.jpg\n' % (len(self.ground), self.ground_image.key))
+        f.write('%d\n' % len(self.walls))
+        for wi in self.walls_images:
+            f.write('%s_projection.jpg\n' % wi.key)
+        f.close()
 
     # TODO add other xml types
     # # return matrix3x4, previous = 4x4, see GL_model_view

@@ -1,6 +1,7 @@
 import numpy as np
 from CommonFunctions import MyDict, stderr
 import pickle
+from MainConsts import *
 
 
 class ImageObject:
@@ -53,13 +54,13 @@ class ImageProperties:
             self.kivy_objects = ip.kivy_objects
             self.project = ip.project
 
-    def save(self, path=None):
-        with open(path if path is not None else self.project, 'wb') as f:
+    def save(self, path=G_ImageProperties_path):
+        with open(path, 'wb') as f:
             pickle.dump(self, f)
             f.close()
 
     @staticmethod
-    def load(path=None):
+    def load(path=G_ImageProperties_path):
         try:
             if path:
                 with open(path, 'rb') as f:

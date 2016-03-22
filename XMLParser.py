@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import numpy as np
 from CommonFunctions import stderr
-
+from MainConsts import G_matrix_path
 
 def define_type(root):
     for child in root:
@@ -27,7 +27,7 @@ class XML:
         return None
 
 
-def get_data_from_xml(source=None):
+def get_data_from_xml(source=G_matrix_path):
     """
     XML Types:
     'IE' - Internal\External Calibration, example: TownCenter

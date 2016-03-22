@@ -1,5 +1,5 @@
 import numpy as np
-from GUI_consts import *
+from MainConsts import *
 from CommonFunctions import get_image_size, MyDict, stderr
 from ImageProperties import ImageObject, ImageProperties
 from CameraProperties import CameraProperties
@@ -13,18 +13,20 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget, Canvas
-from os import getcwd
-from os.path import isfile
+from os import getcwd, chdir
+from os.path import exists
 import warnings
 
 ImageObjects = ImageProperties(G_image_path)
+Project = G_start_project
+chdir(Project)
 
 
 class ButtonsWidget(GridLayout):
     def __init__(self):
         super(ButtonsWidget, self).__init__()
         self.rows = 2
-        self.path_input = TextInput(text=G_image_path)
+        self.path_input = TextInput(text=G_start_project)
         self.open_button = Button(text='Open')
         self.load_data_button = Button(text='Load')
         self.save_data_button = Button(text='Save')
@@ -110,20 +112,27 @@ class ButtonsWidget(GridLayout):
         self.on_buttons_count[key] += 1
 
     def on_open_button_pressed(self):
-        image_widget.source = self.widgets['TextInput'].text
-        image_widget.size = get_image_size(image_widget.source)
-        ImageObjects.copy(ImageProperties(image_widget.source))
-        self.on_clear_button_pressed()
+        try:
+            chdir('../%s' % self.widgets['TextInput'].text)
+            global Project
+            Project = self.widgets['TextInput'].text
+            image_widget.source = '../%s/%s' % (Project, G_image_path)
+            image_widget.size = get_image_size(G_image_path)
+            ImageObjects.copy(ImageProperties(G_image_path))
+            print image_widget.size
+            self.on_clear_button_pressed()
+        except WindowsError:
+            pass
 
     def on_load_button_pressed(self):
         global ImageObjects
         self.add_object()
-        ImageObjects = ImageProperties.load(path=image_widget.source[:-4] + '_POINTS_DATA.3dm')
+        ImageObjects = ImageProperties.load()
         image_widget.draw_all_lines()
 
     def on_save_button_pressed(self):
         self.add_object()
-        ImageObjects.save(path=image_widget.source[:-4] + '_POINTS_DATA.3dm')
+        ImageObjects.save()
 
     def on_clear_button_pressed(self):
         global ImageObjects, image_widget
@@ -159,20 +168,22 @@ class ButtonsWidget(GridLayout):
 
     def on_calculate_button_pressed(self):
         self.add_object()
-        self.cp = CameraProperties(project=image_widget.source[:-4], image_path=image_widget.source, ip=ImageObjects)
+        self.cp = CameraProperties(project=Project, image_path=G_image_path, ip=ImageObjects)
         self.cp.calculate()
 
     def on_render_button_pressed(self):
         self.add_object()
+        if self.cp is not None and self.cp.calculated:
+            self.cp.render()
 
 
 buttons_widget = ButtonsWidget()
 
 
 class ImageWidget(Image):
-    def __init__(self, source=G_image_path):
+    def __init__(self):
         super(ImageWidget, self).__init__()
-        self.source = source
+        self.source = G_image_path
         self.size = get_image_size(G_image_path)
         self.widget_prop = 1, 1
 
@@ -193,20 +204,12 @@ class ImageWidget(Image):
         print >> stderr, 'DRAW!'
         with self.canvas:
             Color(r, g, b)
-            Line(points=touch1.pos + touch2.pos, width=5)
+            Line(points=touch1.pos + touch2.pos, width=2)
 
-    def draw_lines_from_points(self, points, (r, g, b), width=5):
+    def draw_lines_from_points(self, points, (r, g, b), width=2):
         with self.canvas:
             Color(r, g, b)
             Line(points=points, width=width)
-        # self.canvas.add(Color(1, 0, 0))
-        # self.canvas.add(Line(points=points, width=width))
-        # with self.canvas:
-        #     print 'Drawing line with color %s\n%s' % ((r, g, b).__str__(), points.__str__())
-        #     line = Line(points=points, width=width)
-        #     # with line.canvas:
-        #     #     Color(r, g, b)
-        #     Color(r, g, b)
 
     def draw_all_lines(self):
         for key, itself in ImageObjects:
@@ -219,22 +222,8 @@ class ImageWidget(Image):
                 lines.append([])
                 for coordinate in all_coordinates:
                     lines[i] += coordinate
-
-            print 'Drawing %s with color %s\n%s\n' % (key, buttons_widget.colors[key], lines.__str__())
-
             for line in lines:
-                self.draw_lines_from_points(line, buttons_widget.colors[key], width=5)
-
-                # with self.canvas:
-                #     for touches in ImageObjects.kivy_objects[key]:
-                #         line = Line(width=5)
-                #         Color(r, g, b)
-                #         buttons_widget.add_button_count(key)
-                #         print "TOUCHES!!!", touches
-                #         for touch in touches:
-                #             print "ONE TOUCH", touch
-                #             line.points += touch.x, touch.y
-                #     print line.points if line is not None else []
+                self.draw_lines_from_points(line, buttons_widget.colors[key], width=2)
         buttons_widget.upgrade_buttons_count()
 
     def get_image_point(self, (x, y)):
@@ -280,8 +269,6 @@ main_widget = MainWidget()
 class MainGUI(App):
     def build(self):
         return main_widget
-        # return ButtonsWidget()
-        # return ImageWidget()
 
 
 if __name__ == '__main__':
