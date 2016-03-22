@@ -1,5 +1,8 @@
-# TODO !!!
-
-1) Import functions into CameraProperties
-2) Think about 3DImage architecture, which may used in img2plane function
-3) 
+1) (DONE) Import functions into CameraProperties
+2) (DONE) Think about 3DImage architecture, which may used in img2plane function
+3) (TODO) Add other xml types
+4) (TODO) Add sky!
+5) (TODO) Test on other pictures
+6) (TODO) Import interpolate function into CameraProperties
+7) (TODO) Import motion data into Unity
+8) (TODO) Think about shadows in Unity
