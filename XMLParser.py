@@ -3,6 +3,7 @@ import numpy as np
 from CommonFunctions import stderr
 from MainConsts import G_matrix_path
 
+
 def define_type(root):
     for child in root:
         if child.tag == 'Intrinsic':

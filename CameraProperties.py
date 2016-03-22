@@ -16,7 +16,7 @@ class CameraProperties:
         self.walls = restructure_array(ip.objects['Walls'])
         self.walls_images = [None for _ in self.walls]
         self.sky = restructure_array(ip.objects['Sky'])
-        self.sky_image = []
+        self.sky_image = None
         self.motion = restructure_array(ip.objects['Motion'])
 
         self.project = project
@@ -57,6 +57,10 @@ class CameraProperties:
             self.walls_images[i] = Image3D.load('wall%d' % i)
             if self.walls_images[i] is None:
                 self.walls_images[i] = self.image2plane(plane=wall_plane, key='wall%d' % i, points=self.walls[i])
+        for _ in self.sky:
+            self.sky_image = Image3D.load('sky')
+            if self.sky_image is None:
+                self.sky_image = self.image2plane(plane=self.sky_plane, key='sky', points=self.sky[0])
 
     def change_y_coordinate(self):
         change_y_in_lines = lambda lines: map(lambda line:
@@ -65,6 +69,8 @@ class CameraProperties:
                                               lines)
         self.ground = change_y_in_lines(self.ground)
         self.walls = change_y_in_lines(self.walls)
+        self.sky = change_y_in_lines(self.sky)
+        self.motion = change_y_in_lines(self.motion)
 
     def define_wall_plane(self, wall):
         points = []
@@ -216,6 +222,18 @@ class CameraProperties:
         self.make_image_projections()
         self.calculated = True
 
+    def point2plane(self, point):
+        for ground in self.ground:
+            if point_inside(point, ground):
+                return self.ground_plane
+        for i, wall in enumerate(self.walls):
+            if point_inside(point, wall):
+                return self.walls_planes[i]
+        for sky in self.sky:
+            if point_inside(point, sky):
+                return self.sky_plane
+        return self.ground_plane
+
     def render(self):
         f = open(G_UnityPointsAndTex_path, 'w')
         f.write(points_and_tex_info([self.img2world(point=point, plane=self.ground_plane) for point in self.ground[0]],
@@ -225,6 +243,16 @@ class CameraProperties:
         f.write('%d\n' % len(walls))
         for i, wall in enumerate(walls):
             f.write(points_and_tex_info(wall, self.walls_images[i]))
+        # TODO sky
+        f.write('0\n')
+        f.write('%d\n' % len(self.motion))
+        for motion in self.motion:
+            motion_info = '%d\n' % len(motion)
+            for point in motion:
+                for c in self.img2world(point, self.point2plane(point)):
+                    motion_info += '%f ' % float(c)
+                motion_info += '\n'
+            f.write(motion_info)
         f.close()
 
         f = open(G_UnityInfo_path, 'w')
@@ -233,6 +261,8 @@ class CameraProperties:
         f.write('%d\n' % len(self.walls))
         for wi in self.walls_images:
             f.write('%s_projection.jpg\n' % wi.key)
+        f.write('%d\n' % len(self.sky) + ('%s_projection\n' % self.sky_image.key if self.sky else ''))
+        f.write('%d\n' % len(self.motion))
         f.close()
 
     # TODO add other xml types
