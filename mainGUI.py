@@ -234,16 +234,22 @@ class ImageWidget(Image):
         win_prop, img_prop = ww / wh, iw / ih
         if win_prop > 1:
             if img_prop > 1:
-                t = float(win_size[0]) / img_size[0]
-                ans_x = x / t
-                ans_y = (y - (win_size[1] - img_size[1] * t) * .5) / t
-
+                if img_prop > win_prop:
+                    t = float(win_size[0]) / img_size[0]
+                    ans_x = x / t
+                    ans_y = (y - (win_size[1] - img_size[1] * t) * .5) / t
+                else:
+                    t = float(win_size[1]) / img_size[1]
+                    ans_y = y / t
+                    ans_x = (x - (win_size[0] - img_size[0] * t) * .5) / t
                 print 'GET_IMAGE_POINT DEBUG'
                 print win_prop, img_prop
                 print t
                 print '%s -> %s' % ((x, y).__str__(), (ans_x, ans_y).__str__())
 
                 return ans_x, ans_y
+
+
 
         return 0, 0
 

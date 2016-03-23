@@ -293,6 +293,7 @@ class CameraProperties:
         cmi = CameraInformation(self.calibration_matrix, self.GL_projection_matrix,
                                 self.GL_model_view_matrix, G_UnityMatrices_path)
         cmi.save()
+        return
 
     # TODO add other xml types
     # # return matrix3x4, previous = 4x4, see GL_model_view

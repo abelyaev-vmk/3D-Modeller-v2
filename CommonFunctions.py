@@ -162,8 +162,8 @@ class MatricesForImage:
             return
         self.updated = True
         if rotate_type == '3D':
-            axis = np.asarray(axis)
-            theta = np.asarray(theta)
+            axis = np.asarray(axis, dtype='d')
+            theta = np.asarray(theta, dtype='d')
             axis /= sqrt(np.dot(axis, axis))
             a = cos(theta / 2)
             b, c, d = -axis * sin(theta / 2)
@@ -237,8 +237,7 @@ def ground_axis(points):
 
     ground_points = []
     for point in points:
-        if abs(np.array([0, 0, 1]).dot(np.array(point[:3]))) < 1:
-            ground_points.append(point)
+        ground_points.append(np.array(point))
     ground_points.sort(key=lambda p: abs(p[2]))
     ans = ground_points[:2]
     ans.sort(key=lambda p: sqrt(p[0] ** 2 + p[1] ** 2))
@@ -262,7 +261,6 @@ def point_inside(point, points):
 
 
 # # # # # # DECORATORS HERE!!! # # # # # # #
-
 # Class with debug-decorators
 class Debug:
     def __init__(self):
