@@ -28,7 +28,6 @@ class CameraProperties:
 
         # Set camera parameters
         self.camera = camera.Camera()
-        print self.xml
         if self.xml.type == 'IE':
             self.camera.UseNonGL()
             self.camera.SetLocation(self.xml['pos'])
@@ -36,6 +35,7 @@ class CameraProperties:
         if self.xml.type == 'IGE':
             self.camera.UseGL()
             self.camera.SetLocation(self.xml['pos'])
+            self.camera.SetRotationVector(self.xml['rot'])
             pass  # TODO need to calculate camera properties for this type! after reimport
 
         # # It have to be with kivy usage!
@@ -128,7 +128,9 @@ class CameraProperties:
     @property
     def GL_model_view_matrix(self):
         if not hasattr(self, '__gl_model_view_matr'):
-            self.__gl_model_view_matr = self.__compute_GL_model_view_matrix()
+            M = MatricesForImage()
+            M.axis_rotate((1, 0, 0), pi, '3D')
+            self.__gl_model_view_matr = M.rotation_3D * self.__compute_GL_model_view_matrix()
         return self.__gl_model_view_matr
 
     @property
@@ -147,22 +149,44 @@ class CameraProperties:
             A[3, :] = plane[:]
             self.__img2world_dict[plane.__str__()] = A
         b = np.array([[p] for p in point + [0]])
-        new_point = np.dot(np.linalg.inv(A), b)
+        if 'inv' + plane.__str__() in self.__img2world_dict:
+            inv_a = self.__img2world_dict['inv' + plane.__str__()]
+        else:
+            inv_a = np.linalg.inv(A)
+            self.__img2world_dict['inv' + plane.__str__()] = inv_a
+        new_point = np.dot(inv_a, b)
         return new_point[:-1] / new_point[-1]
 
     def world2img(self, point=(0, 0, 0, 1)):
         ip = self.calibration_matrix.dot(hom2het(vector=point))
         return ip[0, 0] / ip[0, 2], ip[0, 1] / ip[0, 2]
 
-    # TODO import from old project
     def interpolate(self, in_point=(0, 0)):
+        point = in_point if len(in_point) == 2 else in_point[:2]
+        x, y = map(int, point)
+        near_points = [[x, y]]
+        if x > 0:
+            near_points.append([x - 1, y])
+        if x < self.image.size[0] - 1:
+            near_points.append([x + 1, y])
+        if y > 1:
+            near_points.append([x, y - 1])
+        if y < self.image.size[1]:
+            near_points.append([x, y + 1])
+        distances = np.array([1 - sqrt((x - nearp[0]) ** 2 + (y - nearp[1]) ** 2)
+                              for nearp in near_points])
+        distances /= sum(distances)
         try:
-            return self.image_pixels[in_point]
-        except KeyError:
-            pass
-        except ValueError:
-            pass
-        return 0, 0, 0
+            pixels = [self.image.getpixel((nearp[0], nearp[1])) for nearp in near_points]
+        except IndexError:
+            # print "INDEX ERROR!"
+            # print "POINT =", point
+            # print "NEARS =", near_points
+            # print "DISTS =", distances
+            return 0, 0, 0, 255
+        # print distances, pixels
+        color = [sum([pixels[i][j] * d for i, d in enumerate(distances)]) for j in range(3)]
+        return tuple(map(int, color))
 
     # TODO add sky
     @Debug.time
@@ -256,7 +280,7 @@ class CameraProperties:
         f.close()
 
         f = open(G_UnityInfo_path, 'w')
-        f.write('%s\n%s\n' % (make_unity_path(getcwd()) + '//', G_UnityPointsAndTex_path))
+        f.write('%s\n%s\n%s\n' % (make_unity_path(getcwd()) + '//', G_UnityPointsAndTex_path, G_UnityMatrices_path))
         f.write('%d\n%s_projection.jpg\n' % (len(self.ground), self.ground_image.key))
         f.write('%d\n' % len(self.walls))
         for wi in self.walls_images:
@@ -264,6 +288,11 @@ class CameraProperties:
         f.write('%d\n' % len(self.sky) + ('%s_projection\n' % self.sky_image.key if self.sky else ''))
         f.write('%d\n' % len(self.motion))
         f.close()
+
+        from CameraMatricesInformation import CameraInformation
+        cmi = CameraInformation(self.calibration_matrix, self.GL_projection_matrix,
+                                self.GL_model_view_matrix, G_UnityMatrices_path)
+        cmi.save()
 
     # TODO add other xml types
     # # return matrix3x4, previous = 4x4, see GL_model_view
@@ -279,13 +308,14 @@ class CameraProperties:
             Ry = np.matrix([[cy, 0, sy, 0], [0, 1, 0, 0], [-sy, 0, cy, 0], [0, 0, 0, 1]])
             Rz = np.matrix([[cz, sz, 0, 0], [-sz, cz, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
             R = Rx * Ry * Rz
-            matr = np.matrix(np.zeros((4, 4)))
+            matr = np.matrix(np.zeros((3, 4)))
             matr[:3, :3] = R[:3, :3]
             matr[0, 3] = tx
             matr[1, 3] = ty
             matr[2, 3] = tz
-            matr[3, 3] = 1
-            return matr
+            # print self.camera.GetViewMatrix()
+            # return matr
+            return self.camera.GetViewMatrix()
 
     # TODO add other xml types
     def __compute_internal_calibration(self):
@@ -304,7 +334,7 @@ class CameraProperties:
             return np.dot(matr, np.array([[self.xml['focal'], 0, 0],
                                           [0, self.xml['focal'], 0],
                                           [0, 0, 1]]))
-        return 1
+        return None
 
     def __compute_internal_parameters(self):
         f = np.mean(self.xml['fl'] if self.xml['fl'] is not None else self.xml['focal'])
